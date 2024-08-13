@@ -1,18 +1,22 @@
 #!/usr/bin/python3
 """Task 1"""
 
+import requests
 
-def top_ten(sub):
-    """Returns the top 10 hot posts
-    of the subreddit"""
-    import requests
 
-    response = requests.get("https://www.reddit.com/r/{}/hot.json?limit=10"
-                            .format(sub),
-                            headers={"User-Agent": "My-User-Agent"},
+def top_ten(subreddit):
+    """Titles of the 10 hottest posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+    }
+    params = {
+        "limit": 10
+    }
+    response = requests.get(url, headers=headers, params=params,
                             allow_redirects=False)
-    if response.status_code >= 300:
-        print('None')
-    else:
-        [print(item.get("data").get("title"))
-         for item in response.json().get("data").get("children")]
+    if response.status_code == 404:
+        print("None")
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
