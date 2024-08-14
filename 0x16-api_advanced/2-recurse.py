@@ -3,20 +3,10 @@
 
 import requests
 
-import requests
-
 def recurse(subreddit, hot_list=[]):
-"""Function to query a list of all hot posts on a given Reddit subreddit."""
-
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "python:subreddit.recurse:v1.0.0 (by /u/Med-Bof)"}
-    params = {"limit": 100, "after": None}
-
-    if len(hot_list) == 0:
-        params["after"] = None
-    else:
-        last_post = hot_list[-1]
-        params["after"] = last_post
+    params = {"limit": 100, "after": None if not hot_list else hot_list[-1]}
 
     try:
         response = requests.get(url, headers=headers, params=params, allow_redirects=False)
