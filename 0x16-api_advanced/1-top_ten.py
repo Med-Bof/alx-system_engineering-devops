@@ -3,6 +3,7 @@
 import requests
 
 def top_ten(subreddit):
+    """Print the titles of the 10 hottest posts on a given subreddit."""
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {"User-Agent": "python:subreddit.top.ten:v1.0.0 (by /u/Med-Bof)"}
     
