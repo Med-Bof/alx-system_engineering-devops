@@ -9,7 +9,7 @@ def count_words(subreddit, word_list, after="", counts=None):
         counts = {}
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "python:subreddit.keyword.counter:v1.0.0 (by /u/your_username)"}
+    headers = {"User-Agent": "python:subreddit.keyword.counter:v1.0.0 (by /u/Med-Bof)"}
     params = {"after": after, "limit": 100}
 
     try:
