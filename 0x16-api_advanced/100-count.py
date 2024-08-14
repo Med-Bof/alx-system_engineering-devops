@@ -1,21 +1,22 @@
 #!/usr/bin/python3
 """ Task 100"""
-
+import requests
 
 def count_words(subreddit, word_list, after="", counts=None):
     """Function to count words in all hot posts of a given Reddit subreddit."""
+
     if counts is None:
         counts = {}
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "python:subreddit.keyword.counter:v1.0.0 (by /u/Med-Bof)"}
+    headers = {"User-Agent": "python:subreddit.keyword.counter:v1.0.0 (by /u/your_username)"}
     params = {"after": after, "limit": 100}
-    
+
     try:
         response = requests.get(url, headers=headers, params=params, allow_redirects=False)
         if response.status_code != 200:
             return
-        
+
         data = response.json().get("data")
         posts = data.get("children", [])
         after = data.get("after")
@@ -34,6 +35,6 @@ def count_words(subreddit, word_list, after="", counts=None):
                 for word, count in sorted_counts:
                     if count > 0:
                         print(f"{word}: {count}")
-    
+
     except requests.RequestException:
         return
